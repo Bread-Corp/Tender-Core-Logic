@@ -3,16 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\models\\eskomtender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\models\\eskomtender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\models\\etender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\models\\etender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\models\\basetender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\models\\basetender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\models\\itender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\models\\itender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\aws-lambda-tools-defaults.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\aws-lambda-tools-defaults.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\models\\tag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\models\\tag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\aws-lambda-tools-defaults.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\aws-lambda-tools-defaults.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,19 +55,84 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "EskomTender.cs",
+              "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\EskomTender.cs",
+              "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Models\\EskomTender.cs",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\EskomTender.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\Models\\EskomTender.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T19:50:33.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Tag.cs",
+              "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\Tag.cs",
+              "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Models\\Tag.cs",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\Tag.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\Models\\Tag.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T19:43:07.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "eTender.cs",
+              "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\eTender.cs",
+              "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Models\\eTender.cs",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\eTender.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\Models\\eTender.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T19:35:23.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ITender.cs",
+              "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\ITender.cs",
+              "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Models\\ITender.cs",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\ITender.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\Models\\ITender.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T19:31:02.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BaseTender.cs",
+              "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\BaseTender.cs",
+              "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Models\\BaseTender.cs",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Models\\BaseTender.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\Models\\BaseTender.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T18:45:26.713Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": ".gitignore",
               "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\.gitignore",
               "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\.gitignore",
               "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\.gitignore",
               "RelativeToolTip": "src\\Tender-Core-Logic\\.gitignore",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-08-04T18:12:06.309Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Startup.cs",
               "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Startup.cs",
               "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Startup.cs",
@@ -55,11 +140,12 @@
               "RelativeToolTip": "src\\Tender-Core-Logic\\Startup.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T09:22:39.242Z"
+              "WhenOpened": "2025-07-30T09:22:39.242Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "aws-lambda-tools-defaults.json",
               "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\aws-lambda-tools-defaults.json",
               "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\aws-lambda-tools-defaults.json",
@@ -67,8 +153,7 @@
               "RelativeToolTip": "src\\Tender-Core-Logic\\aws-lambda-tools-defaults.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-30T09:18:45.62Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-30T09:18:45.62Z"
             }
           ]
         }
