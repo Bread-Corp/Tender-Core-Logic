@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36119.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tender-Core-Logic", "src\Tender-Core-Logic\Tender-Core-Logic.csproj", "{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EDAFAF8-AEE1-47AC-B921-68BB0FF7A5C6}
+	EndGlobalSection
+EndGlobal

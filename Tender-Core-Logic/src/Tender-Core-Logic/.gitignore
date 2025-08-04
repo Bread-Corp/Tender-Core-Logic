@@ -1,0 +1,90 @@
+﻿# --------------------------------------------
+# .NET / ASP.NET Core Specific
+# --------------------------------------------
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache/options
+.vs/
+
+# Auto-generated files
+Generated\ Files/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Entity Framework Migrations Build Output
+Migrations/obj/
+
+# --------------------------------------------
+# AWS Lambda / Deployment Specific
+# --------------------------------------------
+
+# AWS Lambda Tools for .NET temporary files
+.aws-lambda-tools-defaults.json
+
+# Lambda package zips
+*.zip
+
+# SAM/CloudFormation build artifacts
+.aws-sam/
+.template/
+
+# --------------------------------------------
+# Secrets & Environment
+# --------------------------------------------
+*.env
+secrets.json
+appsettings.*.local.json
+
+# If you keep AWS creds locally (don’t commit them!)
+.aws/
+
+# --------------------------------------------
+# IDE / Editor Specific
+# --------------------------------------------
+# JetBrains Rider
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# --------------------------------------------
+# Logs / Temp / Misc
+# --------------------------------------------
+*.log
+*.tlog
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+# --------------------------------------------
+# Testing / Coverage
+# --------------------------------------------
+TestResult*/
+coverage*/
+*.coverage
+*.coveragexml
