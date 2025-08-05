@@ -26,7 +26,7 @@ jobs:
         run: dotnet build Tender-Core-Logic/Tender-Core-Logic.sln --configuration Release
 
       - name: Publish Lambda package
-        run: dotnet publish Tender-Core-Logic/Tender-Core-Logic/src/Tender-Core-Logic/Tender-Core-Logic.csproj -c Release -o ./publish
+        run: dotnet publish Tender-Core-Logic/src/Tender-Core-Logic/Tender-Core-Logic.csproj -c Release -o ./publish
 
       - name: Zip Lambda package
         run: zip -r lambda.zip ./publish/*
