@@ -17,16 +17,16 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.0' # Change to match your project's version
+          dotnet-version: '8.0'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore Tender-Core-Logic/Tender-Core-Logic.sln
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build Tender-Core-Logic/Tender-Core-Logic.sln --configuration Release
 
       - name: Publish Lambda package
-        run: dotnet publish -c Release -o ./publish
+        run: dotnet publish Tender-Core-Logic/src/Tender-Core-Logic/Tender-Core-Logic.csproj -c Release -o ./publish
 
       - name: Zip Lambda package
         run: zip -r lambda.zip ./publish/*
