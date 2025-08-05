@@ -20,13 +20,13 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore Tender-Core-Logic/Tender-Core-Logic.sln
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build Tender-Core-Logic/Tender-Core-Logic.sln --configuration Release
 
       - name: Publish Lambda package
-        run: dotnet publish -c Release -o ./publish
+        run: dotnet publish Tender-Core-Logic/Tender-Core-Logic/src/TenderToolCoreLogic.csproj -c Release -o ./publish
 
       - name: Zip Lambda package
         run: zip -r lambda.zip ./publish/*
