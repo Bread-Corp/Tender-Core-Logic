@@ -1,5 +1,14 @@
 {
   "profiles": {
+    "Tender-Core-Logic": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Eskom_API": "https://a0ohlxlbvk.execute-api.us-east-1.amazonaws.com/default/EskomLambda"
+      },
+      "applicationUrl": "https://localhost:55144;http://localhost:55140"
+    },
     "Mock Lambda Test Tool": {
       "commandName": "Executable",
       "commandLineArgs": "--port 5050",
