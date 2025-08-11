@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Tender_Core_Logic.Models
 {
@@ -6,13 +7,13 @@ namespace Tender_Core_Logic.Models
     {
         [Key]
         [Required]
-        public Guid TenderID { get; set; }
+        public Guid TenderID { get; set; } //Initialised on create.
 
         [Required]
         public string Title { get; set; }
 
         [Required]
-        public string Status { get; set; }
+        public string Status { get; set; } //Set on create.
 
         [Required]
         public DateTime PublishedDate { get; set; }
@@ -20,9 +21,16 @@ namespace Tender_Core_Logic.Models
         [Required]
         public DateTime ClosingDate { get; set; }
 
-        public List<Tag>? Tags { get; set; }
+        [Required]
+        public DateTime DateAppended { get; set; }
 
-        public string? Description { get; set; }
+        [Required]
+        [JsonProperty("Source")]
+        public string Source { get; set; } //Appended manually from lambda function.
+
+        public List<Tag> Tags { get; set; } = new(); //Appended from comprehend.
+
+        public string? Description { get; set; } //AI summary possibly.
 
         public string? SupportingDocs { get; set; }
     }

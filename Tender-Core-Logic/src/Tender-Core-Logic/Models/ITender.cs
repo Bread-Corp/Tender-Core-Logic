@@ -7,6 +7,8 @@
         string Status { get; }
         DateTime PublishedDate { get; }
         DateTime ClosingDate { get; }
+        DateTime DateAppended { get; }
+        string Source { get; }
         List<Tag> Tags { get; }
         string? Description { get; }
         string? SupportingDocs { get; }

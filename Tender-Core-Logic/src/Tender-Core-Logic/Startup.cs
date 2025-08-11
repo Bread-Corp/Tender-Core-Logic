@@ -1,4 +1,8 @@
-﻿namespace Tender_Core_Logic
+﻿using Microsoft.EntityFrameworkCore;
+using Tender_Core_Logic.Controllers;
+using Tender_Core_Logic.Data;
+
+namespace Tender_Core_Logic
 {
     public class Startup
     {
@@ -23,6 +27,11 @@
                     .AllowAnyHeader();
                 });
             });
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("RDS_Connection"))); //For use of EF and AppDbContext
+
+            services.AddHttpClient<CrawlerController>(); //Configuration for http usage in crawler controller.
 
             services.AddControllers();
         }
