@@ -26,10 +26,11 @@ jobs:
         run: dotnet build Tender-Core-Logic/Tender-Core-Logic.sln --configuration Release
 
       - name: Publish Lambda package
-        run: dotnet publish Tender-Core-Logic/src/Tender-Core-Logic/Tender-Core-Logic.csproj -c Release -o ./publish
+        run: dotnet publish Tender-Core-Logic/src/Tender-Core-Logic/Tender-Core-Logic.csproj -c Release -r linux-x64 --self-contained false -o ./publish
 
       - name: Zip Lambda package
-        run: zip -r lambda.zip ./publish/*
+        working-directory: ./publish
+        run: zip -r ../lambda.zip .
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
