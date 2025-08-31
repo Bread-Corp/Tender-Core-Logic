@@ -11,6 +11,6 @@
         string Source { get; }
         List<Tag> Tags { get; }
         string? Description { get; }
-        string? SupportingDocs { get; }
+        List<SupportingDoc> SupportingDocs { get; }
     }
 }

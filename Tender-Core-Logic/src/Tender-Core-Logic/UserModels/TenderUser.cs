@@ -1,0 +1,27 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace Tender_Core_Logic.UserModels
+{
+	public class TenderUser
+	{
+		[Key]
+		[Required]
+		public Guid UserID { get; set; } = Guid.NewGuid();
+
+		[Required]
+		public string FullName { get; set; }
+
+		[Required]
+		public string Email { get; set; }
+
+		public string? PhoneNumber { get; set; }
+
+		[Required]
+		public string Role { get; set; } = "StandardUser";
+
+		public string? ProfilePicture { get; set; }
+
+		[Required]
+		public bool IsSuperUser { get; set; } = false;
+	}
+}
