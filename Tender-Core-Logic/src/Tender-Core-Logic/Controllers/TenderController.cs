@@ -4,8 +4,8 @@ using Tender_Core_Logic.Models;
 
 namespace Tender_Logic.Controllers
 {
-    [ApiController]
-    [Route("[controller]")] // /tender
+[ApiController]
+[Route("[controller]")] // /tender
     public class TenderController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
