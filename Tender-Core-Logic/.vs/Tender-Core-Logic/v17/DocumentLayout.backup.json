@@ -3,26 +3,38 @@
   "WorkspaceRootPath": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\controllers\\watchlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\controllers\\watchlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\controllers\\tenderusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\controllers\\tenderusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\localentrypoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\localentrypoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\usermodels\\tenderuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\usermodels\\tenderuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\usermodels\\standarduser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\usermodels\\standarduser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\controllers\\tendercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\controllers\\tendercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\controllers\\tenderusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\controllers\\tenderusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\controllers\\watchlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\controllers\\watchlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\controllers\\crawlercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\controllers\\crawlercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/tender_tool_db.c2hq4seoidxc.us_east_1.rds.amazonaws.com_1433/tendertool_db/admin/SqlTable/dbo.BaseTender.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/tender_tool_db.c2hq4seoidxc.us_east_1.rds.amazonaws.com_1433/tendertool_db/admin/SqlTable/dbo.TenderUser.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|c:\\users\\kiroh\\documents\\gitwil\\tender-core-logic\\tender-core-logic\\src\\tender-core-logic\\controllers\\crawlercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4D428D1-7F9C-44ED-9F83-BED38F6046AD}|src\\Tender-Core-Logic\\Tender-Core-Logic.csproj|solutionrelative:src\\tender-core-logic\\controllers\\crawlercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,76 +55,129 @@
               "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LocalEntryPoint.cs",
+              "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\LocalEntryPoint.cs",
+              "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\LocalEntryPoint.cs",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\LocalEntryPoint.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\LocalEntryPoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T20:08:25.867Z"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "dbo.BaseTender [Data]",
+              "Title": "StandardUser.cs",
+              "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\UserModels\\StandardUser.cs",
+              "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\UserModels\\StandardUser.cs",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\UserModels\\StandardUser.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\UserModels\\StandardUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T18:05:33.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "dbo.BaseTender.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/tender_tool_db.c2hq4seoidxc.us_east_1.rds.amazonaws.com_1433/tendertool_db/admin/SqlTable/dbo.BaseTender.sql",
-              "ToolTip": "dbo.BaseTender [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/tender_tool_db.c2hq4seoidxc.us_east_1.rds.amazonaws.com_1433/tendertool_db/admin/SqlTable/dbo.BaseTender.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-08-31T22:53:29.833Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-31T22:53:29.833Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "dbo.TenderUser [Data]",
+              "DocumentIndex": 8,
+              "Title": "dbo.TenderUser.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/tender_tool_db.c2hq4seoidxc.us_east_1.rds.amazonaws.com_1433/tendertool_db/admin/SqlTable/dbo.TenderUser.sql",
-              "ToolTip": "dbo.TenderUser [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/tender_tool_db.c2hq4seoidxc.us_east_1.rds.amazonaws.com_1433/tendertool_db/admin/SqlTable/dbo.TenderUser.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-08-31T22:48:35.648Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-31T22:48:35.648Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "TenderUserController.cs",
               "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\TenderUserController.cs",
               "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Controllers\\TenderUserController.cs",
               "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\TenderUserController.cs",
               "RelativeToolTip": "src\\Tender-Core-Logic\\Controllers\\TenderUserController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAIwB8AAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAmwFUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-29T22:08:17.508Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "TenderUser.cs",
+              "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\UserModels\\TenderUser.cs",
+              "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\UserModels\\TenderUser.cs",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\UserModels\\TenderUser.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\UserModels\\TenderUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T18:04:32.632Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "TenderController.cs",
               "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\TenderController.cs",
               "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Controllers\\TenderController.cs",
               "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\TenderController.cs",
               "RelativeToolTip": "src\\Tender-Core-Logic\\Controllers\\TenderController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T22:07:54.436Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-29T22:07:54.436Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "CrawlerController.cs",
               "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\CrawlerController.cs",
               "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Controllers\\CrawlerController.cs",
               "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\CrawlerController.cs",
               "RelativeToolTip": "src\\Tender-Core-Logic\\Controllers\\CrawlerController.cs",
-              "ViewState": "AgIAAHQAAAAAAAAAAAAwwKQAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T22:27:49.359Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-29T22:27:49.359Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "WatchlistController.cs",
               "DocumentMoniker": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\WatchlistController.cs",
               "RelativeDocumentMoniker": "src\\Tender-Core-Logic\\Controllers\\WatchlistController.cs",
-              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\WatchlistController.cs*",
-              "RelativeToolTip": "src\\Tender-Core-Logic\\Controllers\\WatchlistController.cs*",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAiwBcAAAArAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\kiroh\\Documents\\GitWIL\\Tender-Core-Logic\\Tender-Core-Logic\\src\\Tender-Core-Logic\\Controllers\\WatchlistController.cs",
+              "RelativeToolTip": "src\\Tender-Core-Logic\\Controllers\\WatchlistController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAqwBAAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T10:08:03.117Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-30T10:08:03.117Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 260,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         }

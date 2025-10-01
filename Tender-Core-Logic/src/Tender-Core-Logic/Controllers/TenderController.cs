@@ -29,6 +29,20 @@ namespace Tender_Logic.Controllers
             if (tender == null)
                 return NotFound();
 
+            switch (tender.Source)
+            {
+                case "Eskom":
+                    tender = _context.EskomTenders.FirstOrDefault(t => t.TenderID == ID);
+                    break;
+
+                case "eTender":
+                    tender = _context.EskomTenders.FirstOrDefault(t => t.TenderID == ID);
+                    break;
+
+                default:
+                    throw new Exception("No inherited Tender instance found. Specify source of requested Tender.");
+            }
+
             return Ok(tender);
         }
     }

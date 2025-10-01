@@ -32,7 +32,7 @@ namespace Tender_Core_Logic.Controllers
             return Ok(watchlist);
         }
 
-        [HttpPost("togglewatch/<{userID}><{tenderID}>")]
+        [HttpPost("togglewatch/{userID}/{tenderID}")]
         public async Task<IActionResult> ToggleWatch(Guid userID, Guid tenderID)
         {
             var userTender = await _context.User_Tenders.FirstOrDefaultAsync(uw => uw.FKUserID == userID && uw.FKTenderID == tenderID);

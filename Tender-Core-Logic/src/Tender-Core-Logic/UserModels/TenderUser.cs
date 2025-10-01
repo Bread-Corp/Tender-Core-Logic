@@ -6,7 +6,7 @@ namespace Tender_Core_Logic.UserModels
 	{
 		[Key]
 		[Required]
-		public Guid UserID { get; set; } = Guid.NewGuid();
+		public Guid UserID { get; set; }
 
 		[Required]
 		public string FullName { get; set; }
