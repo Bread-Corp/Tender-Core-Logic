@@ -41,6 +41,8 @@ namespace Tender_Core_Logic.Controllers
         [HttpPost]
         public async Task<IActionResult> WriteUser(TenderUser user)
         {
+            string userID = "";
+
             if (ModelState.IsValid)
             {
                 switch (user.Role)
@@ -53,7 +55,8 @@ namespace Tender_Core_Logic.Controllers
                                 var StandardUser = new StandardUser
                                 {
                                     //manually map data to object fields, using the request data where possible.
-                                    //I have appended the ID in the model class on initialisation. 
+                                    //appended the ID and return it in the response.
+                                    UserID = Guid.NewGuid(),
                                     FullName = standardUser.FullName,
                                     Email = standardUser.Email,
                                     PhoneNumber = standardUser.PhoneNumber,
@@ -65,6 +68,8 @@ namespace Tender_Core_Logic.Controllers
                                 };
 
                                 _context.Add(StandardUser);
+
+                                userID = StandardUser.UserID.ToString();
                             }
                             else
                             {
@@ -72,7 +77,7 @@ namespace Tender_Core_Logic.Controllers
                             }
                             
                             await _context.SaveChangesAsync();
-                            return Ok();
+                            return Ok(userID); //return userID as a string - to be appended to cognito.
                         }
                         catch (Exception ex)
                         {
