@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Tender_Core_Logic.Data;
 using Tender_Core_Logic.Models;
 
@@ -15,10 +16,38 @@ namespace Tender_Logic.Controllers
         }
 
         [HttpGet("fetch")]
-        public async Task<IEnumerable<ITender>> GetTenders()
+        public async Task<IActionResult> GetTenders([FromQuery] int? page, [FromQuery] int? pageSize)
         {
-            var tenders = _context.Tenders.ToList();
-            return tenders;
+            //if no params, we return all tenders
+            if(page == null || pageSize == null)
+            {
+                var tenders = await _context.Tenders.ToListAsync();
+                return Ok(tenders);
+            }
+
+            //otherwise we paginate
+            if (page <= 0 || pageSize <= 0)
+                return BadRequest("Page and Page Size values must be valid.");
+
+            int skip = ((int)page - 1) * (int)pageSize;
+            var totalCount = await _context.Tenders.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            var paginatedTenders = await _context.Tenders
+                .Skip(skip)
+                .Take((int)pageSize)
+                .ToListAsync();
+
+            var response = new
+            {
+                Data = paginatedTenders,
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("fetch/{ID}")]
@@ -29,14 +58,26 @@ namespace Tender_Logic.Controllers
             if (tender == null)
                 return NotFound();
 
-            switch (tender.Source)
+            switch (tender.Source?.ToLowerInvariant())
             {
-                case "Eskom":
+                case "eskom":
                     tender = _context.EskomTenders.FirstOrDefault(t => t.TenderID == ID);
                     break;
 
-                case "eTender":
-                    tender = _context.EskomTenders.FirstOrDefault(t => t.TenderID == ID);
+                case "etender":
+                    tender = _context.eTenders.FirstOrDefault(t => t.TenderID == ID);
+                    break;
+
+                case "sanral":
+                    tender = _context.SanralTenders.FirstOrDefault(t => t.TenderID == ID);
+                    break;
+
+                case "transnet":
+                    tender = _context.TransnetTenders.FirstOrDefault(t => t.TenderID == ID);
+                    break;
+
+                case "sars":
+                    tender = _context.SarsTenders.FirstOrDefault(t => t.TenderID == ID);
                     break;
 
                 default:

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tender_Core_Logic.Data;
 
@@ -11,9 +12,11 @@ using Tender_Core_Logic.Data;
 namespace TenderCoreLogic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251016062413_new-models_etender-update")]
+    partial class newmodels_etenderupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,16 +287,6 @@ namespace TenderCoreLogic.Migrations
                     b.ToTable("StandardUser", (string)null);
                 });
 
-            modelBuilder.Entity("Tender_Core_Logic.UserModels.SuperUser", b =>
-                {
-                    b.HasBaseType("Tender_Core_Logic.UserModels.TenderUser");
-
-                    b.Property<string>("Organisation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("SuperUser", (string)null);
-                });
-
             modelBuilder.Entity("BaseTenderTag", b =>
                 {
                     b.HasOne("Tender_Core_Logic.Models.Tag", null)
@@ -385,15 +378,6 @@ namespace TenderCoreLogic.Migrations
                     b.HasOne("Tender_Core_Logic.UserModels.TenderUser", null)
                         .WithOne()
                         .HasForeignKey("Tender_Core_Logic.UserModels.StandardUser", "UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Tender_Core_Logic.UserModels.SuperUser", b =>
-                {
-                    b.HasOne("Tender_Core_Logic.UserModels.TenderUser", null)
-                        .WithOne()
-                        .HasForeignKey("Tender_Core_Logic.UserModels.SuperUser", "UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
