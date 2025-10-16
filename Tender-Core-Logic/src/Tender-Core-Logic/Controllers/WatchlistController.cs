@@ -18,18 +18,49 @@ namespace Tender_Core_Logic.Controllers
         }
 
         [HttpGet("{userID}")]
-        public async Task<IActionResult> GetWatchlist(Guid userID)
+        public async Task<IActionResult> GetWatchlist(Guid userID, [FromQuery] int? page, [FromQuery] int? pageSize)
         {
-            var watchlist = await _context.User_Tenders
+            //if no params, we return all tenders
+            if (page == null || pageSize == null)
+            {
+                var watchlist = await _context.User_Tenders
                 .Include(uw => uw.FKTender)
                 .Where(uw => uw.FKUserID == userID && uw.IsWatched)
                 .Select(uw => uw.FKTender)
                 .ToListAsync();
 
-            if (watchlist.IsNullOrEmpty())
-                return BadRequest("No tenders watched!");
+                if (watchlist.IsNullOrEmpty())
+                    return BadRequest("No tenders watched!");
 
-            return Ok(watchlist);
+                return Ok(watchlist);
+            }
+
+            //otherwise we paginate
+            if (page <= 0 || pageSize <= 0)
+                return BadRequest("Page and Page Size values must be valid.");
+
+            int skip = ((int)page - 1) * (int)pageSize;
+            var totalCount = await _context.Tenders.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            var paginatedTenders = await _context.User_Tenders
+                .Include(uw => uw.FKTender)
+                .Where(uw => uw.FKUserID == userID && uw.IsWatched)
+                .Select(uw => uw.FKTender)
+                .Skip(skip)
+                .Take((int)pageSize)
+                .ToListAsync();
+
+            var response = new
+            {
+                Data = paginatedTenders,
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages
+            };
+
+            return Ok(response);
         }
 
         [HttpPost("togglewatch/{userID}/{tenderID}")]
