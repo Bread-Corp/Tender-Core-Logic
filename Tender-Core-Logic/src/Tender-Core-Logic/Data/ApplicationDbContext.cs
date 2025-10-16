@@ -22,6 +22,7 @@ namespace Tender_Core_Logic.Data
 
         //User Child Entities
         public DbSet<StandardUser> StandardUsers { get; set; }
+        public DbSet<SuperUser> SuperUsers { get; set; }
 
         //Bridge tables -- manual creation
         public DbSet<User_Tender> User_Tenders { get; set; }
@@ -40,6 +41,7 @@ namespace Tender_Core_Logic.Data
             //user specific
             modelBuilder.Entity<TenderUser>(entity => { entity.ToTable("TenderUser"); });
             modelBuilder.Entity<StandardUser>(entity => { entity.ToTable("StandardUser"); });
+            modelBuilder.Entity<SuperUser>(entity => { entity.ToTable("SuperUser"); });
             modelBuilder.Entity<User_Tender>(entity => { entity.ToTable("User_Tender"); });
 
             //Ensures no duplicates of watchlist entries by checking if foreign keys are unique
