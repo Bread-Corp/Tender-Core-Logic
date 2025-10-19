@@ -32,6 +32,8 @@ namespace Tender_Core_Logic.Models
 
         public string? Description { get; set; } //AI summary possibly.
 
+        public string? AISummary { get; set; } //Another field for AI summary
+
         public List<SupportingDoc> SupportingDocs { get; set; } = new();
     }
 }

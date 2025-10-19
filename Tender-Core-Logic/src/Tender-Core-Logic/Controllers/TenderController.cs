@@ -86,5 +86,41 @@ namespace Tender_Logic.Controllers
 
             return Ok(tender);
         }
+
+        [HttpPost("deletetender/{tenderID}")]
+        public async Task<IActionResult> DeleteTender(Guid tenderID)
+        {
+            try
+            {
+                //find tender and remove
+                var tender = await _context.Tenders.FindAsync(tenderID);
+                if (tender == null)
+                {
+                    return NotFound(new
+                    {
+                        status = "not_found",
+                        message = "Tender not found."
+                    });
+                }
+
+                _context.Tenders.Remove(tender);
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    status = "deleted",
+                    message = "Tender deleted successfully.",
+                    userId = tenderID
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    status = "error",
+                    message = $"Failed to delete tender: {ex.Message}"
+                });
+            }
+        }
     }
 }

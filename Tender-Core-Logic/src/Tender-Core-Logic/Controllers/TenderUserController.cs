@@ -18,6 +18,74 @@ namespace Tender_Core_Logic.Controllers
             _context = context;
         }
 
+        [HttpGet("fetch/{adminID}")]
+        public async Task<IActionResult> FetchUsers(Guid adminID, [FromQuery] string? role, [FromQuery] int? page, [FromQuery] int? pageSize)
+        {
+            var admin = await _context.Users.FirstOrDefaultAsync(a => a.UserID == adminID);
+            
+            if (admin == null || admin.Role != "SuperUser")
+            {
+                return BadRequest("Invalid User");
+            }
+
+            if (string.IsNullOrWhiteSpace(role))
+            {
+                //return all users
+                var allUsers = await _context.Users.ToListAsync();
+                return Ok(allUsers);
+            }
+
+            //otherwise we paginate
+            if (page <= 0 || pageSize <= 0 || page == null || pageSize == null)
+                return BadRequest("Page and Page Size values must be valid.");
+
+            int skip = ((int)page - 1) * (int)pageSize;
+            var totalCount = await _context.Users.Where(u => u.Role == role).CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            switch (role)
+            {
+                case "StandardUser":
+                    var paginatedStandardUsers = await _context.StandardUsers
+                        .Skip(skip)
+                        .Take((int)pageSize)
+                        .ToListAsync();
+
+                    var responseStandard = new
+                    {
+                        Data = paginatedStandardUsers,
+                        CurrentPage = page,
+                        PageSize = pageSize,
+                        TotalCount = totalCount,
+                        TotalPages = totalPages
+                    };
+
+                    return Ok(responseStandard);
+
+                case "SuperUser":
+                    var paginatedSuperUsers = await _context.SuperUsers
+                        .Skip(skip)
+                        .Take((int)pageSize)
+                        .ToListAsync();
+
+                    var responseSuper = new
+                    {
+                        Data = paginatedSuperUsers,
+                        CurrentPage = page,
+                        PageSize = pageSize,
+                        TotalCount = totalCount,
+                        TotalPages = totalPages
+                    };
+
+                    return Ok(responseSuper);
+
+                default:
+                    //return all users
+                    var allUsers = await _context.Users.ToListAsync();
+                    return Ok(allUsers);
+            }
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterStandardUser([FromBody] StandardUser tenderUser)
         {
@@ -129,7 +197,6 @@ namespace Tender_Core_Logic.Controllers
                                     FullName = superUser.FullName,
                                     Email = superUser.Email,
                                     PhoneNumber = superUser.PhoneNumber,
-                                    Role = superUser.Role,
                                     ProfilePicture = "",
 
                                     Organisation = superUser.Organisation,
@@ -162,13 +229,13 @@ namespace Tender_Core_Logic.Controllers
             }
         }
 
-        [HttpDelete("deleteuser/{id}")]
+        [HttpPost("deleteuser/{userID}")]
         public async Task<IActionResult> DeleteUser(Guid userID)
         {
             try
             {
                 //find user and remove
-                var user = await _context.Users.FindAsync(userID);
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userID);
                 if (user == null)
                 {
                     return NotFound(new
