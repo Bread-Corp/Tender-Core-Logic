@@ -40,7 +40,7 @@ namespace Tender_Core_Logic.Controllers
                 return BadRequest("Page and Page Size values must be valid.");
 
             int skip = ((int)page - 1) * (int)pageSize;
-            var totalCount = await _context.Tenders.CountAsync();
+            var totalCount = await _context.User_Tenders.Where(uw => uw.FKUserID == userID && uw.IsWatched).CountAsync();
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
             var paginatedTenders = await _context.User_Tenders
