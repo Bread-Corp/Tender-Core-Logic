@@ -16,7 +16,9 @@ namespace Tender_Core_Logic.UserModels
 
 		public string? PhoneNumber { get; set; }
 
-		[Required]
+        public DateTime DateAppended { get; set; }
+
+        [Required]
 		public string Role { get; set; } = "StandardUser";
 
 		public string? ProfilePicture { get; set; }

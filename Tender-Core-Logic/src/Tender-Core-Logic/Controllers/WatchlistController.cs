@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Tender_Core_Logic.Data;
+using Tender_Core_Logic.Models;
 using Tender_Core_Logic.UserModels;
 
 namespace Tender_Core_Logic.Controllers
@@ -15,6 +16,23 @@ namespace Tender_Core_Logic.Controllers
         public WatchlistController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        private object WatchlistAnalytics(List<BaseTender> watchlistItems)
+        {
+            var count = watchlistItems.Count;
+
+            var closed = watchlistItems.Where(w => w.ClosingDate < DateTime.Now).ToList().Count;
+            var closingSoon = watchlistItems.Where(w => (w.ClosingDate - DateTime.Now).TotalDays <= 7 && w.ClosingDate > DateTime.Now).ToList().Count;
+            var closingLater = count - closingSoon - closed;
+
+            return new
+            {
+                count,
+                closed,
+                closingSoon,
+                closingLater
+            };
         }
 
         [HttpGet("{userID}")]
@@ -32,7 +50,13 @@ namespace Tender_Core_Logic.Controllers
                 if (watchlist.IsNullOrEmpty())
                     return BadRequest("No tenders watched!");
 
-                return Ok(watchlist);
+                var analytics = WatchlistAnalytics(watchlist);
+
+                return Ok(new
+                {
+                    watchlist,
+                    analytics
+                });
             }
 
             //otherwise we paginate
