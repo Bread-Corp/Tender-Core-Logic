@@ -32,7 +32,19 @@ namespace Tender_Core_Logic.Controllers
             {
                 //return all users
                 var allUsers = await _context.Users.ToListAsync();
-                return Ok(allUsers);
+                var userCount = allUsers.Count;
+                var standardUserCount = allUsers.Where(u => u.Role == "StandardUser").ToList().Count;
+                var superUserCount = allUsers.Where(u => u.Role == "SuperUser").ToList().Count;
+                var registeredRecently = allUsers.Where(u => (DateTime.Now - u.DateAppended).TotalDays < 30).ToList().Count;
+
+                return Ok(new
+                {
+                    allUsers,
+                    userCount,
+                    standardUserCount,
+                    superUserCount,
+                    registeredRecently
+                });
             }
 
             //otherwise we paginate
@@ -160,6 +172,7 @@ namespace Tender_Core_Logic.Controllers
                                     FullName = standardUser.FullName,
                                     Email = standardUser.Email,
                                     PhoneNumber = standardUser.PhoneNumber,
+                                    DateAppended = DateTime.Now,
                                     Role = standardUser.Role,
                                     ProfilePicture = "",
 
@@ -197,6 +210,7 @@ namespace Tender_Core_Logic.Controllers
                                     FullName = superUser.FullName,
                                     Email = superUser.Email,
                                     PhoneNumber = superUser.PhoneNumber,
+                                    DateAppended = DateTime.Now,
                                     ProfilePicture = "",
 
                                     Organisation = superUser.Organisation,
