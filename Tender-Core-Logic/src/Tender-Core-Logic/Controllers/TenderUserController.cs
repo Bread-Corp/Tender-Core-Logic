@@ -278,5 +278,53 @@ namespace Tender_Core_Logic.Controllers
                 });
             }
         }
+
+        //DTO for edit so json can be read from body
+        public class EditUserDTO
+        {
+            public string email { get; set; }
+            public string fullName { get; set; }
+            public string phoneNumber { get; set; }
+            public string address { get; set; }
+        }
+
+        [HttpPost("edit/{userID}")]
+        public async Task<IActionResult> EditUser(Guid userID, [FromBody] EditUserDTO model)
+        {
+            var user = await _context.StandardUsers.FindAsync(userID);
+            if (user == null)
+            {
+                return NotFound(new
+                {
+                    status = "not_found",
+                    message = "User not found."
+                });
+            }
+
+            try
+            {
+                user.Email = model.email;
+                user.FullName = model.fullName;
+                user.PhoneNumber = model.phoneNumber;
+                user.Address = model.address;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    status = "Updated",
+                    message = "User updated successfully.",
+                    userId = userID
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    status = "error",
+                    message = $"Failed to edit user: {ex.Message}"
+                });
+            }
+        }
     }
 }
