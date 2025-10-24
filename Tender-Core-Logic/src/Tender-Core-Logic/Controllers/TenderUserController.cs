@@ -284,8 +284,8 @@ namespace Tender_Core_Logic.Controllers
         {
             public string email { get; set; }
             public string fullName { get; set; }
-            public string phoneNumber { get; set; }
-            public string address { get; set; }
+            public string? phoneNumber { get; set; }
+            public string? address { get; set; }
         }
 
         [HttpPost("edit/{userID}")]
@@ -305,8 +305,12 @@ namespace Tender_Core_Logic.Controllers
             {
                 user.Email = model.email;
                 user.FullName = model.fullName;
-                user.PhoneNumber = model.phoneNumber;
-                user.Address = model.address;
+
+                if (model.phoneNumber != null)
+                    user.PhoneNumber = model.phoneNumber;
+
+                if (model.address != null)
+                    user.Address = model.address;
 
                 await _context.SaveChangesAsync();
 

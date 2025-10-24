@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Tender_Core_Logic.UserModels;
 
 namespace Tender_Core_Logic.Models
 {
@@ -11,5 +12,7 @@ namespace Tender_Core_Logic.Models
         public string TagName { get; set; }
 
         public List<BaseTender> Tenders { get; set; } = new();
+
+        public List<StandardUser> StandardUsers { get; set; } = new();
     }
 }

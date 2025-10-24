@@ -18,5 +18,7 @@ namespace Tender_Core_Logic.Models
         public string? Email { get; set; }
 
         public string? ContactPerson { get; set; }
+
+        public string? FullTextNotice { get; set; }
     }
 }

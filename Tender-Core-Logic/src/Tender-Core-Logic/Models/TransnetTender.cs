@@ -13,6 +13,10 @@ namespace Tender_Core_Logic.Models
 
         public string? Email { get; set; }
 
-        public string? FullNoticeText { get; set; }
+        public string? Institution { get; set; }
+
+        public string? TenderType { get; set; }
+
+
     }
 }
