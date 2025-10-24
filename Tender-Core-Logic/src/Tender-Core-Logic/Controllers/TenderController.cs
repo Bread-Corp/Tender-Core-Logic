@@ -21,7 +21,7 @@ namespace Tender_Logic.Controllers
             //if no params, we return all tenders
             if(page == null || pageSize == null)
             {
-                var tenders = await _context.Tenders.ToListAsync();
+                var tenders = await _context.Tenders.Include(t => t.Tags).Include(s => s.SupportingDocs).ToListAsync();
                 return Ok(tenders);
             }
 
@@ -61,23 +61,23 @@ namespace Tender_Logic.Controllers
             switch (tender.Source?.ToLowerInvariant())
             {
                 case "eskom":
-                    tender = _context.EskomTenders.FirstOrDefault(t => t.TenderID == ID);
+                    tender = _context.EskomTenders.Include(t => t.Tags).Include(s => s.SupportingDocs).FirstOrDefault(t => t.TenderID == ID);
                     break;
 
                 case "etender":
-                    tender = _context.eTenders.FirstOrDefault(t => t.TenderID == ID);
+                    tender = _context.eTenders.Include(t => t.Tags).Include(s => s.SupportingDocs).FirstOrDefault(t => t.TenderID == ID);
                     break;
 
                 case "sanral":
-                    tender = _context.SanralTenders.FirstOrDefault(t => t.TenderID == ID);
+                    tender = _context.SanralTenders.Include(t => t.Tags).Include(s => s.SupportingDocs).FirstOrDefault(t => t.TenderID == ID);
                     break;
 
                 case "transnet":
-                    tender = _context.TransnetTenders.FirstOrDefault(t => t.TenderID == ID);
+                    tender = _context.TransnetTenders.Include(t => t.Tags).Include(s => s.SupportingDocs).FirstOrDefault(t => t.TenderID == ID);
                     break;
 
                 case "sars":
-                    tender = _context.SarsTenders.FirstOrDefault(t => t.TenderID == ID);
+                    tender = _context.SarsTenders.Include(t => t.Tags).Include(s => s.SupportingDocs).FirstOrDefault(t => t.TenderID == ID);
                     break;
 
                 default:

@@ -43,6 +43,9 @@ namespace Tender_Core_Logic.Controllers
             {
                 var watchlist = await _context.User_Tenders
                 .Include(uw => uw.FKTender)
+                    .ThenInclude(t => t.Tags)
+                .Include(uw => uw.FKTender)
+                    .ThenInclude(s => s.SupportingDocs)
                 .Where(uw => uw.FKUserID == userID && uw.IsWatched)
                 .Select(uw => uw.FKTender)
                 .ToListAsync();
