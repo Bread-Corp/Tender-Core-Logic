@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Tender_Core_Logic.Data;
 using Tender_Core_Logic.Models;
+using Tender_Core_Logic.NotificationModels;
 using Tender_Core_Logic.UserModels;
 
 namespace Tender_Core_Logic.Controllers
@@ -78,13 +79,48 @@ namespace Tender_Core_Logic.Controllers
                 .Take((int)pageSize)
                 .ToListAsync();
 
+            //Notification flow - closing soon
+            var notifThreshold = DateTime.UtcNow.AddDays(7);
+            var closingSoonTenders = await _context.User_Tenders
+                .Include(uw => uw.FKTender)
+                .Where(uw => uw.FKUserID == userID && uw.IsWatched && !uw.IsNotified && uw.FKTender.ClosingDate <= notifThreshold && uw.FKTender.ClosingDate > DateTime.UtcNow)
+                .ToListAsync();
+
+            //If closingDate is within 7 days => push to NotifDB
+            //Set var hasNotif = true.
+            var hasNotif = closingSoonTenders.Any();
+
+            if (hasNotif)
+            {
+                foreach(var tender in closingSoonTenders)
+                {
+                    tender.IsNotified = true;
+
+                    //create new notification and add to the table
+                    var notification = new Notification
+                    {
+                        NotificationID = Guid.NewGuid(),
+                        Title = "Tender Closing Soon",
+                        Message = $"{tender.FKTender.Title} is closing soon.",
+                        Type = "closingSoon",
+                        FKTenderID = tender.FKTenderID,
+                        FKUserID = userID,
+                    };
+
+                    _context.Notifications.Add(notification);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
             var response = new
             {
                 Data = paginatedTenders,
                 CurrentPage = page,
                 PageSize = pageSize,
                 TotalCount = totalCount,
-                TotalPages = totalPages
+                TotalPages = totalPages,
+                HasNotification = hasNotif //if true, update bell icon
             };
 
             return Ok(response);
@@ -93,7 +129,8 @@ namespace Tender_Core_Logic.Controllers
         [HttpPost("togglewatch/{userID}/{tenderID}")]
         public async Task<IActionResult> ToggleWatch(Guid userID, Guid tenderID)
         {
-            var userTender = await _context.User_Tenders.FirstOrDefaultAsync(uw => uw.FKUserID == userID && uw.FKTenderID == tenderID);
+            var userTender = await _context.User_Tenders.Include(t => t.FKTender).FirstOrDefaultAsync(uw => uw.FKUserID == userID && uw.FKTenderID == tenderID);
+            var tender = await _context.Tenders.FindAsync(tenderID);
 
             if (userTender == null)
             {
@@ -101,11 +138,23 @@ namespace Tender_Core_Logic.Controllers
                 {
                     FKUserID = userID,
                     FKTenderID = tenderID,
-                    IsWatched = true,
+                    IsWatched = true, //if true then we apply red icon on notif bell in frontend
                     UserTenderStatus = "Watching",
+                };
+
+                //create new notification and add to the table
+                var notification = new Notification
+                {
+                    NotificationID = Guid.NewGuid(),
+                    Title = "Toggled Watch",
+                    Message = $"{tender.Title} is on your watchlist.",
+                    Type = "watchlist",
+                    FKTenderID = tenderID,
+                    FKUserID = userID,
                 };
                 
                 _context.User_Tenders.Add(userTender);
+                _context.Notifications.Add(notification);
             }
             else
             {

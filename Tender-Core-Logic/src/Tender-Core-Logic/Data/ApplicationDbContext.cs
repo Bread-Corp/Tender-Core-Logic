@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tender_Core_Logic.Models;
+using Tender_Core_Logic.NotificationModels;
 using Tender_Core_Logic.UserModels;
 
 namespace Tender_Core_Logic.Data
@@ -23,6 +24,7 @@ namespace Tender_Core_Logic.Data
         //Tags and Docs
         public DbSet<Tag> Tags { get; set; }
         public DbSet<SupportingDoc> SupportingDocs { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         //User Child Entities
         public DbSet<StandardUser> StandardUsers { get; set; }

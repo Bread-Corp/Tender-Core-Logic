@@ -11,12 +11,12 @@ namespace Tender_Core_Logic.Models
 
         public string? Region { get; set; }
 
+        public string? ContactPerson { get; set; }
+
         public string? Email { get; set; }
 
         public string? Institution { get; set; }
 
         public string? TenderType { get; set; }
-
-
     }
 }
