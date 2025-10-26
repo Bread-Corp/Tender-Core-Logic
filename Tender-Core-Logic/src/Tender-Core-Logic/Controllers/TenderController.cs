@@ -53,7 +53,7 @@ namespace Tender_Logic.Controllers
         [HttpGet("fetch/{ID}")]
         public IActionResult GetTenderByID(Guid ID)
         {
-            var tender = _context.Tenders.FirstOrDefault(t => t.TenderID == ID);
+            var tender = _context.Tenders.Find(ID);
 
             if (tender == null)
                 return NotFound();
@@ -64,7 +64,7 @@ namespace Tender_Logic.Controllers
                     tender = _context.EskomTenders.Include(t => t.Tags).Include(s => s.SupportingDocs).FirstOrDefault(t => t.TenderID == ID);
                     break;
 
-                case "etender":
+                case "etenders":
                     tender = _context.eTenders.Include(t => t.Tags).Include(s => s.SupportingDocs).FirstOrDefault(t => t.TenderID == ID);
                     break;
 
