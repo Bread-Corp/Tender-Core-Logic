@@ -21,7 +21,7 @@ namespace Tender_Core_Logic.Controllers
         [HttpGet("fetch/{adminID}")]
         public async Task<IActionResult> FetchUsers(Guid adminID, [FromQuery] string? role, [FromQuery] int? page, [FromQuery] int? pageSize)
         {
-            var admin = await _context.Users.FirstOrDefaultAsync(a => a.UserID == adminID);
+            var admin = await _context.Users.FindAsync(adminID);
             
             if (admin == null || admin.Role != "SuperUser")
             {
@@ -249,7 +249,7 @@ namespace Tender_Core_Logic.Controllers
             try
             {
                 //find user and remove
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userID);
+                var user = await _context.Users.FindAsync(userID);
                 if (user == null)
                 {
                     return NotFound(new
@@ -275,6 +275,59 @@ namespace Tender_Core_Logic.Controllers
                 {
                     status = "error",
                     message = $"Failed to delete user: {ex.Message}"
+                });
+            }
+        }
+
+        //DTO for edit so json can be read from body
+        public class EditUserDTO
+        {
+            public string email { get; set; }
+            public string fullName { get; set; }
+            public string? phoneNumber { get; set; }
+            public string? address { get; set; }
+            public string[] tags { get; set; } 
+        }
+
+        [HttpPost("edit/{userID}")]
+        public async Task<IActionResult> EditUser(Guid userID, [FromBody] EditUserDTO model)
+        {
+            var user = await _context.StandardUsers.FindAsync(userID);
+            if (user == null)
+            {
+                return NotFound(new
+                {
+                    status = "not_found",
+                    message = "User not found."
+                });
+            }
+
+            try
+            {
+                user.Email = model.email;
+                user.FullName = model.fullName;
+
+                if (model.phoneNumber != null)
+                    user.PhoneNumber = model.phoneNumber;
+
+                if (model.address != null)
+                    user.Address = model.address;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    status = "Updated",
+                    message = "User updated successfully.",
+                    userId = userID
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    status = "error",
+                    message = $"Failed to edit user: {ex.Message}"
                 });
             }
         }

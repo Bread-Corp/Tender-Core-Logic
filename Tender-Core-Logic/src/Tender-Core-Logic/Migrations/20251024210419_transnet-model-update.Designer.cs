@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tender_Core_Logic.Data;
 
@@ -11,9 +12,11 @@ using Tender_Core_Logic.Data;
 namespace TenderCoreLogic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251024210419_transnet-model-update")]
+    partial class transnetmodelupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,42 +117,6 @@ namespace TenderCoreLogic.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("Tender_Core_Logic.NotificationModels.Notification", b =>
-                {
-                    b.Property<Guid>("NotificationID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("FKTenderID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FKUserID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("NotificationID");
-
-                    b.HasIndex("FKTenderID");
-
-                    b.HasIndex("FKUserID");
-
-                    b.ToTable("Notifications");
-                });
-
             modelBuilder.Entity("Tender_Core_Logic.UserModels.TenderUser", b =>
                 {
                     b.Property<Guid>("UserID")
@@ -198,9 +165,6 @@ namespace TenderCoreLogic.Migrations
 
                     b.Property<Guid>("FKUserID")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsNotified")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsWatched")
                         .HasColumnType("bit");
@@ -335,23 +299,14 @@ namespace TenderCoreLogic.Migrations
                 {
                     b.HasBaseType("Tender_Core_Logic.Models.BaseTender");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Audience")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OfficeLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Province")
+                    b.Property<string>("Department")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenderNumber")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("URL")
                         .HasColumnType("nvarchar(max)");
 
                     b.ToTable("eTender", (string)null);
@@ -401,25 +356,6 @@ namespace TenderCoreLogic.Migrations
                         .IsRequired();
 
                     b.Navigation("Tender");
-                });
-
-            modelBuilder.Entity("Tender_Core_Logic.NotificationModels.Notification", b =>
-                {
-                    b.HasOne("Tender_Core_Logic.Models.BaseTender", "FKTender")
-                        .WithMany()
-                        .HasForeignKey("FKTenderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tender_Core_Logic.UserModels.TenderUser", "FKUser")
-                        .WithMany()
-                        .HasForeignKey("FKUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FKTender");
-
-                    b.Navigation("FKUser");
                 });
 
             modelBuilder.Entity("Tender_Core_Logic.UserModels.User_Tender", b =>

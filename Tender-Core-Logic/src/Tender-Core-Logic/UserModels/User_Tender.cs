@@ -13,6 +13,10 @@ namespace Tender_Core_Logic.UserModels
         [Required]
         public bool IsWatched { get; set; } = false;
 
+        //indicates whether the tender closing sooon date has been registered as a notification
+        [Required]
+        public bool IsNotified { get; set; } = false;
+
         //per-user tender status -- does not affect the tender globally
         [Required]
         public string UserTenderStatus { get; set; } = "Watching";

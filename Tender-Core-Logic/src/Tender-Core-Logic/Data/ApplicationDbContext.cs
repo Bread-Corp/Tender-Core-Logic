@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tender_Core_Logic.Models;
+using Tender_Core_Logic.NotificationModels;
 using Tender_Core_Logic.UserModels;
 
 namespace Tender_Core_Logic.Data
@@ -19,6 +20,11 @@ namespace Tender_Core_Logic.Data
         public DbSet<SanralTender> SanralTenders { get; set; }
         public DbSet<TransnetTender> TransnetTenders { get; set; }
         public DbSet<SarsTender> SarsTenders { get; set; }
+
+        //Tags and Docs
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<SupportingDoc> SupportingDocs { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         //User Child Entities
         public DbSet<StandardUser> StandardUsers { get; set; }
@@ -56,7 +62,40 @@ namespace Tender_Core_Logic.Data
             modelBuilder.Entity<User_Tender>()
                 .HasIndex(uw => uw.FKTenderID);
 
-            //modelBuilder.Entity<SupportingDoc>().HasNoKey();
+            //Relationships for Tags and Docs
+            modelBuilder.Entity<Tag>()
+                .HasMany(t => t.Tenders)
+                .WithMany(b => b.Tags)
+                .UsingEntity<Dictionary<string, object>>(
+                    "Tender_Tag",
+                    j => j
+                        .HasOne<BaseTender>()
+                        .WithMany()
+                        .HasForeignKey("TenderID")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    j => j
+                        .HasOne<Tag>()
+                        .WithMany()
+                        .HasForeignKey("TagID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                );
+
+            modelBuilder.Entity<Tag>()
+                .HasMany(s => s.StandardUsers)
+                .WithMany(b => b.Tags)
+                .UsingEntity<Dictionary<string, object>>(
+                    "StandardUser_Tag",
+                    j => j
+                        .HasOne<StandardUser>()
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    j => j
+                        .HasOne<Tag>()
+                        .WithMany()
+                        .HasForeignKey("TagID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                );
         }
     }
 }
