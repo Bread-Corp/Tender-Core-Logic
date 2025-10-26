@@ -33,7 +33,7 @@ namespace Tender_Logic.Controllers
             var totalCount = await _context.Tenders.CountAsync();
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
-            var paginatedTenders = await _context.Tenders
+            var paginatedTenders = await _context.Tenders.Include(t => t.Tags).Include(s => s.SupportingDocs)
                 .Skip(skip)
                 .Take((int)pageSize)
                 .ToListAsync();
