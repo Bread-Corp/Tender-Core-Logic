@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Tender_Core_Logic.Data;
 using Tender_Core_Logic.Models;
 using Tender_Core_Logic.UserModels;
@@ -98,6 +99,41 @@ namespace Tender_Core_Logic.Controllers
             }
         }
 
+        [HttpGet("fetchtags/{userID}")]
+        public async Task<IActionResult> FetchUserTags(Guid userID)
+        {
+            try
+            {
+                //find tags and check if null - _context.Tags.OrderBy(t => t.TagName).ToList();
+                var userTags = await _context.StandardUsers.Where(u => u.UserID == userID).Include(t => t.Tags).Select(t => t.Tags).ToListAsync();
+                if (userTags == null)
+                {
+                    return NotFound(new
+                    {
+                        status = "not_found",
+                        message = "User tags not found."
+                    });
+                }
+
+                var count = userTags.Count();
+
+                return Ok(new
+                {
+                    tagCount = count,
+                    tags = userTags,
+                    userId = userID
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    status = "error",
+                    message = $"Failed to fetch tags: {ex.Message}"
+                });
+            }
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterStandardUser([FromBody] StandardUser tenderUser)
         {
@@ -177,8 +213,15 @@ namespace Tender_Core_Logic.Controllers
                                     ProfilePicture = "",
 
                                     Address = standardUser.Address,
-                                    Tags = standardUser.Tags,
+                                    Tags = new List<Tag>(),
                                 };
+
+                                //normalise tag names and and fetch existing
+                                var incomingTags = standardUser.Tags.Select(t => t.TagName.Trim().ToLower()).Distinct().ToList();
+                                var existingTags = await _context.Tags.Where(t => incomingTags.Contains(t.TagName.ToLower())).ToListAsync();
+
+                                //append those tags to the DTO
+                                StandardUser.Tags.AddRange(existingTags);
 
                                 _context.Add(StandardUser);
 
@@ -286,13 +329,13 @@ namespace Tender_Core_Logic.Controllers
             public string fullName { get; set; }
             public string? phoneNumber { get; set; }
             public string? address { get; set; }
-            public string[] tags { get; set; } 
+            public List<Tag> tags { get; set; } = new();
         }
 
         [HttpPost("edit/{userID}")]
         public async Task<IActionResult> EditUser(Guid userID, [FromBody] EditUserDTO model)
         {
-            var user = await _context.StandardUsers.FindAsync(userID);
+            var user = await _context.StandardUsers.Include(t => t.Tags).FirstOrDefaultAsync(u => u.UserID == userID);
             if (user == null)
             {
                 return NotFound(new
@@ -307,11 +350,23 @@ namespace Tender_Core_Logic.Controllers
                 user.Email = model.email;
                 user.FullName = model.fullName;
 
-                if (model.phoneNumber != null)
+                if (String.IsNullOrEmpty(model.phoneNumber))
                     user.PhoneNumber = model.phoneNumber;
 
-                if (model.address != null)
+                if (String.IsNullOrEmpty(model.address))
                     user.Address = model.address;
+
+                if (model.tags != null && model.tags.Count > 0)
+                {
+                    //normalise tag names and and fetch existing
+                    var incomingTags = model.tags.Select(t => t.TagName.Trim().ToLower()).Distinct().ToList();
+                    var existingTags = await _context.Tags.Where(t => incomingTags.Contains(t.TagName.ToLower())).ToListAsync();
+
+                    //append those tags to the DTO
+                    user.Tags.Clear();
+                    user.Tags.AddRange(existingTags);
+                }
+                //user.Tags = _context.Tags;
 
                 await _context.SaveChangesAsync();
 
