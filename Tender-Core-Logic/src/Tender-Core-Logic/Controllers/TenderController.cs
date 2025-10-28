@@ -24,7 +24,8 @@ namespace Tender_Logic.Controllers
             public string? dateFilter { get; set; } //closing soon or newly added 
             public string[] tagFilter { get; set; } //second set of data if user chooses to add more.
             public string? statusFilter { get; set; } //open or closed
-            public string? alphaSort { get; set; } //A-Z or Z-A (takes less priority than sort) 
+            public string? alphaSort { get; set; } //A-Z or Z-A (takes less priority than sort)
+            public string[]? sources { get; set; } //for source filtering
         }
 
         [HttpPost("fetchFiltered")]
@@ -58,6 +59,12 @@ namespace Tender_Logic.Controllers
             if (filterModel?.tagFilter != null && filterModel.tagFilter.Any(t => !string.IsNullOrWhiteSpace(t)))
             {
                 tendersQuery = tendersQuery.Where(t => t.Tags.Any(tag => filterModel.tagFilter.Contains(tag.TagName)));
+            }
+
+            //apply source filter
+            if (filterModel?.sources != null && filterModel.sources.Any(s => !string.IsNullOrWhiteSpace(s)))
+            {
+                tendersQuery = tendersQuery.Where(t => filterModel.sources.Contains(t.Source));
             }
 
             //apply date filters
