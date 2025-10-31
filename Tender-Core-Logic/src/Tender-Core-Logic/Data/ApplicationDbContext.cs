@@ -96,6 +96,53 @@ namespace Tender_Core_Logic.Data
                         .HasForeignKey("TagID")
                         .OnDelete(DeleteBehavior.Cascade)
                 );
+
+            // ---- Tender indexes ----
+            modelBuilder.Entity<BaseTender>()
+                .HasIndex(t => t.ClosingDate);
+
+            modelBuilder.Entity<BaseTender>()
+                .HasIndex(t => t.PublishedDate);
+
+            modelBuilder.Entity<BaseTender>()
+                .HasIndex(t => t.Status);
+
+            modelBuilder.Entity<BaseTender>()
+                .HasIndex(t => t.Source);
+
+            modelBuilder.Entity<User_Tender>()
+                .HasIndex(uw => new { uw.FKUserID, uw.FKTenderID });
+
+            // Consider a composite index if you usually filter by Status then order by ClosingDate
+            modelBuilder.Entity<BaseTender>()
+                .HasIndex(b => new { b.Status, b.ClosingDate });
+            modelBuilder.Entity<BaseTender>()
+                .HasIndex(b => new { b.Source, b.ClosingDate });
+
+            // If Title searches are frequent, index Title (beware large text lengths)
+            modelBuilder.Entity<BaseTender>()
+                .HasIndex(b => b.Title);
+
+            // ---- Tag index ----
+            modelBuilder.Entity<Tag>()
+                .HasIndex(t => t.TagName);
+
+            // ---- Join tables (explicitly configure the implicit join) ----
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Tender_Tag", b =>
+            {
+                b.HasKey("TenderID", "TagID");
+                b.HasIndex("TagID");
+                b.HasIndex("TenderID");
+                b.ToTable("Tender_Tag");
+            });
+
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("StandardUser_Tag", b =>
+            {
+                b.HasKey("UserID", "TagID");
+                b.HasIndex("TagID");
+                b.HasIndex("UserID");
+                b.ToTable("StandardUser_Tag");
+            });
         }
     }
 }

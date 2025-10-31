@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using Tender_Core_Logic.Data;
 using Tender_Core_Logic.Models;
+using Tender_Core_Logic.Models.DTO;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Tender_Logic.Controllers
 {
@@ -31,40 +34,45 @@ namespace Tender_Logic.Controllers
         [HttpPost("fetchFiltered")]
         public async Task<IActionResult> GetFilteredTenders([FromQuery] int? page, [FromQuery] int? pageSize, [FromBody] FilterDTO filterModel)
         {
-            var tendersQuery = _context.Tenders.Include(t => t.Tags).Include(s => s.SupportingDocs).AsQueryable();
-
             //otherwise we paginate
             if (page <= 0 || pageSize <= 0 || page == null || pageSize == null)
                 return BadRequest("Page and Page Size values must be valid.");
+
+            var tendersQuery = _context.Tenders.AsNoTracking().AsQueryable();//creates a queryable obj without saveChanges tracking
 
             //apply filtering
             //apply search filter
             if (!string.IsNullOrWhiteSpace(filterModel?.search))
             {
-                string term = filterModel.search.ToLower();
+                string term = filterModel.search.Trim();
                 tendersQuery = tendersQuery.Where(t =>
-                    t.Title.ToLower().Contains(term) ||
-                    (t.Description != null && t.Description.ToLower().Contains(term)) ||
-                    (t.Source != null && t.Source.ToLower().Contains(term))
-                    );
+                    EF.Functions.Like(t.Title, $"%{term}%") ||
+                    (t.Description != null && EF.Functions.Like(t.Description, $"%{term}%")) ||
+                    (t.Source != null && EF.Functions.Like(t.Source, $"%{term}%"))
+                    ); //utilises EF.Functions for more-effecient querying
             }
+
+            //merge tags - concat
+            var allTags = (filterModel?.tags ?? Array.Empty<string>())
+                    .Concat(filterModel?.tagFilter ?? Array.Empty<string>())
+                    .Where(t => !string.IsNullOrWhiteSpace(t))
+                    .Select(t => t.Trim())
+                    .Distinct()
+                    .ToArray();
+
 
             //apply tags filter
-            if (filterModel?.tags != null && filterModel.tags.Any(t => !string.IsNullOrWhiteSpace(t)))
-            {
-                tendersQuery = tendersQuery.Where(t => t.Tags.Any(tag => filterModel.tags.Contains(tag.TagName)));
-            }
-
             //apply overlay tag filter
-            if (filterModel?.tagFilter != null && filterModel.tagFilter.Any(t => !string.IsNullOrWhiteSpace(t)))
+            if (allTags.Length > 0)
             {
-                tendersQuery = tendersQuery.Where(t => t.Tags.Any(tag => filterModel.tagFilter.Contains(tag.TagName)));
+                tendersQuery = tendersQuery.Where(t => t.Tags.Any(tag => allTags.Contains(tag.TagName)));
             }
 
             //apply source filter
             if (filterModel?.sources != null && filterModel.sources.Any(s => !string.IsNullOrWhiteSpace(s)))
             {
-                tendersQuery = tendersQuery.Where(t => filterModel.sources.Contains(t.Source));
+                var sources = filterModel.sources.Where(s => !string.IsNullOrWhiteSpace(s)).ToArray();
+                tendersQuery = tendersQuery.Where(t => sources.Contains(t.Source));
             }
 
             //apply date filters
@@ -77,55 +85,46 @@ namespace Tender_Logic.Controllers
                 }
                 else if (filterModel.dateFilter.Equals("Newly Added", StringComparison.OrdinalIgnoreCase))
                 {
-                    tendersQuery = tendersQuery.OrderByDescending(t => t.PublishedDate);
+                    tendersQuery = tendersQuery.Where(t => t.PublishedDate >= today.AddDays(-30)).OrderByDescending(t => t.PublishedDate);
                 }
             }
 
             //apply status filter
             if (!string.IsNullOrWhiteSpace(filterModel?.statusFilter))
             {
-                var statusNorm = filterModel.statusFilter.ToLower();
-                tendersQuery = tendersQuery.Where(t => t.Status != null && t.Status.ToLower() == statusNorm);
+                var statusNorm = filterModel.statusFilter.Trim();
+                tendersQuery = tendersQuery.Where(t => t.Status == statusNorm);
             }
 
             //apply sorting logic
-            if (!string.IsNullOrWhiteSpace(filterModel?.sort))
+            if (!string.IsNullOrWhiteSpace(filterModel?.sort) || !string.IsNullOrWhiteSpace(filterModel?.alphaSort))
             {
-                switch (filterModel.sort)
+                switch (filterModel.sort, filterModel.alphaSort)
                 {
-                    case "Descending":
-                        tendersQuery = tendersQuery.OrderByDescending(t => t.ClosingDate);
+                    case ("Descending", "A-Z"):
+                        tendersQuery = tendersQuery.OrderByDescending(t => t.ClosingDate)
+                                                   .ThenBy(t => t.Title);
                         break;
-
-                    case "Ascending":
-                        tendersQuery = tendersQuery.OrderBy(t => t.ClosingDate);
+                    case ("Descending", "Z-A"):
+                        tendersQuery = tendersQuery.OrderByDescending(t => t.ClosingDate)
+                                                   .ThenByDescending(t => t.Title);
                         break;
-
+                    case ("Ascending", "A-Z"):
+                        tendersQuery = tendersQuery.OrderBy(t => t.ClosingDate)
+                                                   .ThenBy(t => t.Title);
+                        break;
+                    case ("Ascending", "Z-A"):
+                        tendersQuery = tendersQuery.OrderBy(t => t.ClosingDate)
+                                                   .ThenByDescending(t => t.Title);
+                        break;
                     default:
                         tendersQuery = tendersQuery.OrderByDescending(t => t.ClosingDate);
                         break;
                 }
             }
-
-            //alphabetical sorting takes lower priority than main sort
-            if (!string.IsNullOrWhiteSpace(filterModel?.alphaSort))
+            else
             {
-                var ordered = tendersQuery as IOrderedQueryable<BaseTender>;
-                if (ordered != null)
-                {
-                    if (filterModel.alphaSort.Equals("A-Z", StringComparison.OrdinalIgnoreCase))
-                        tendersQuery = ordered.ThenBy(t => t.Title);
-                    else if (filterModel.alphaSort.Equals("Z-A", StringComparison.OrdinalIgnoreCase))
-                        tendersQuery = ordered.ThenByDescending(t => t.Title);
-                }
-                else
-                {
-                    // no order was applied yet—so start it
-                    if (filterModel.alphaSort.Equals("A-Z", StringComparison.OrdinalIgnoreCase))
-                        tendersQuery = tendersQuery.OrderBy(t => t.Title);
-                    else if (filterModel.alphaSort.Equals("Z-A", StringComparison.OrdinalIgnoreCase))
-                        tendersQuery = tendersQuery.OrderByDescending(t => t.Title);
-                }
+                tendersQuery = tendersQuery.OrderByDescending(t => t.ClosingDate);
             }
 
             //apply Pagination
@@ -136,6 +135,22 @@ namespace Tender_Logic.Controllers
             var paginatedTenders = await tendersQuery
                 .Skip(skip)
                 .Take((int)pageSize)
+                .Select(t => new BaseTenderDTO
+                {
+                    TenderID = t.TenderID,
+                    Title = t.Title,
+                    Status = t.Status,
+                    PublishedDate = t.PublishedDate,
+                    ClosingDate = t.ClosingDate,
+                    Source = t.Source,
+                    Description = t.Description,
+                    AISummary = t.AISummary,
+                    Tags = t.Tags.Select(tag => tag).ToList(),
+                    //SupportingDocs = t.SupportingDocs.Select(d => new SupportingDoc { SupportingDocID = d.SupportingDocID, Name = d.Name, URL = d.URL}).ToList()
+                })
+
+                //.Include(t => t.Tags)
+                //.Include(s => s.SupportingDocs)
                 .ToListAsync();
 
             var response = new
