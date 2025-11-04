@@ -221,35 +221,425 @@ Ready to dive into the central command? Let's power up your development environm
 - Use Postman with AWS Signature v4 for realistic request signing
 - Monitor logs in console for debugging information
 
-## 📦 Deployment (CI/CD)
+## 📦 Deployment
 
-Our deployment pipeline is a masterpiece of automation! 🎯
+This ASP.NET Core Lambda function can be deployed using three different methods. Choose the one that best fits your workflow and requirements.
 
-### 🚀 **Automated Deployment Flow:**
+### Prerequisites
+
+Before deploying, ensure you have:
+
+- .NET 8 SDK installed
+- AWS CLI configured with appropriate credentials
+- SQL Server RDS instance running and accessible
+- Required environment variables configured (see Configuration section)
+- IAM permissions for Lambda execution and API Gateway
+
+---
+
+### Method 1: AWS Toolkit Deployment
+
+Deploy directly from your IDE using the AWS Toolkit extension.
+
+#### For Visual Studio 2022:
+
+1. **Install AWS Toolkit:**
+   - Install the AWS Toolkit for Visual Studio from the Visual Studio Marketplace
+
+2. **Configure AWS Credentials:**
+   - Ensure your AWS credentials are configured in Visual Studio
+   - Go to View → AWS Explorer and configure your profile
+
+3. **Deploy the Function:**
+   - Right-click on the `Tender-Core-Logic.csproj` project
+   - Select "Publish to AWS Lambda..."
+   - Choose "ASP.NET Core Web API" as the function blueprint
+   - Configure the deployment settings:
+     - **Function Name**: `TenderCoreLogicAPI`
+     - **Runtime**: `.NET 8`
+     - **Memory**: `512 MB`
+     - **Timeout**: `30 seconds`
+     - **Handler**: `Tender-Core-Logic::Tender_Core_Logic.LambdaEntryPoint::FunctionHandlerAsync`
+
+4. **Configure API Gateway:**
+   - The function will automatically create an API Gateway with `/{proxy+}` and `/` routes
+   - Both `ANY` and `OPTIONS` methods will be configured for CORS support
+   - Note the generated API Gateway URL for testing
+
+5. **Set Environment Variables:**
+   ```
+   DB_CONNECTION_STRING: Server=your-rds-endpoint,1433;Database=TenderTool;User Id=admin;Password=YOUR_PASSWORD;Encrypt=True;TrustServerCertificate=True
+   MAILER_FUNCTION_ARN: arn:aws:lambda:us-east-1:123456789:function:TenderMailer
+   LOGGING_FUNCTION_ARN: arn:aws:lambda:us-east-1:123456789:function:TenderLogger
+   ANALYTICS_FUNCTION_ARN: arn:aws:lambda:us-east-1:123456789:function:TenderAnalytics
+   ```
+
+#### For VS Code:
+
+1. **Install AWS Toolkit:**
+   - Install the AWS Toolkit extension for VS Code
+
+2. **Open Command Palette:**
+   - Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
+   - Type "AWS: Deploy SAM Application"
+
+3. **Follow the deployment wizard** to configure and deploy your function
+
+---
+
+### Method 2: SAM Deployment
+
+Deploy using AWS SAM CLI with the provided serverless template.
+
+#### Step 1: Install SAM CLI
+
+```bash
+# For Windows (using Chocolatey)
+choco install aws-sam-cli
+
+# For macOS (using Homebrew)
+brew install aws-sam-cli
+
+# For Linux (using pip)
+pip install aws-sam-cli
+```
+
+#### Step 2: Install Lambda Tools
+
+```bash
+dotnet tool install -g Amazon.Lambda.Tools
+```
+
+#### Step 3: Navigate to Project Directory
+
+```bash
+cd Tender-Core-Logic/src/Tender-Core-Logic
+```
+
+#### Step 4: Configure Environment Variables
+
+Create a `parameters.json` file for environment variables:
+
+```json
+{
+  "DBConnectionString": "Server=your-rds-endpoint,1433;Database=TenderTool;User Id=admin;Password=YOUR_PASSWORD;Encrypt=True;TrustServerCertificate=True",
+  "MailerFunctionArn": "arn:aws:lambda:us-east-1:123456789:function:TenderMailer",
+  "LoggingFunctionArn": "arn:aws:lambda:us-east-1:123456789:function:TenderLogger",
+  "AnalyticsFunctionArn": "arn:aws:lambda:us-east-1:123456789:function:TenderAnalytics"
+}
+```
+
+#### Step 5: Build and Deploy
+
+```bash
+# Build the project
+dotnet restore
+dotnet build -c Release
+
+# Package the Lambda function (ASP.NET Core style)
+dotnet lambda package -c Release -o ./lambda-package.zip Tender-Core-Logic.csproj
+
+# Deploy using SAM with guided setup
+sam deploy --template-file serverless.template \
+           --stack-name tender-core-logic-api-stack \
+           --capabilities CAPABILITY_IAM \
+           --guided
+```
+
+#### Alternative: Direct SAM Deploy
+
+For subsequent deployments after initial setup:
+
+```bash
+sam deploy --template-file serverless.template \
+           --stack-name tender-core-logic-api-stack \
+           --capabilities CAPABILITY_IAM \
+           --parameter-overrides \
+             DBConnectionString="Server=your-rds-endpoint,1433;Database=TenderTool;User Id=admin;Password=YOUR_PASSWORD;Encrypt=True;TrustServerCertificate=True" \
+             MailerFunctionArn="arn:aws:lambda:us-east-1:123456789:function:TenderMailer" \
+             LoggingFunctionArn="arn:aws:lambda:us-east-1:123456789:function:TenderLogger" \
+             AnalyticsFunctionArn="arn:aws:lambda:us-east-1:123456789:function:TenderAnalytics"
+```
+
+#### Important: IAM Policies
+
+The serverless template includes `AWSLambda_FullAccess` policy. For production, consider using more restrictive permissions:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "lambda:InvokeFunction"
+      ],
+      "Resource": [
+        "arn:aws:lambda:us-east-1:123456789:function:TenderMailer",
+        "arn:aws:lambda:us-east-1:123456789:function:TenderLogger",
+        "arn:aws:lambda:us-east-1:123456789:function:TenderAnalytics"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    }
+  ]
+}
+```
+
+---
+
+### Method 3: Workflow Deployment (GitHub Actions)
+
+Deploy automatically using GitHub Actions when pushing to the release branch.
+
+#### Step 1: Set Up Repository Secrets
+
+In your GitHub repository, go to Settings → Secrets and variables → Actions, and add:
 
 ```
-🔄 Code Push to Main Branch
-    ↓
-🏗️ GitHub Actions Build Process
-    ├─ 🧪 Run Unit Tests
-    ├─ 📦 Build Release Package
-    ├─ 🔍 Security Scanning
-    └─ ✅ Quality Gates
-    ↓
-☁️ AWS Lambda Deployment
-    ├─ 📤 Upload Function Package
-    ├─ ⚙️ Update Configuration
-    ├─ 🔄 Update API Gateway
-    └─ ✅ Health Checks
-    ↓
-🎉 Production Ready!
+AWS_ACCESS_KEY_ID: your-aws-access-key-id
+AWS_SECRET_ACCESS_KEY: your-aws-secret-access-key
+AWS_REGION: us-east-1
+LAMBDA_FUNCTION_NAME: your-lambda-function-name
 ```
 
-### 📋 **Deployment Triggers:**
-- **Main Branch**: Automatic deployment to production
-- **Development Branch**: Automatic deployment to staging
-- **Pull Requests**: Automated testing and validation
+#### Step 2: Deploy via Release Branch
 
+```bash
+# Create and switch to release branch
+git checkout -b release
+
+# Make your changes and commit
+git add .
+git commit -m "Deploy Tender Core Logic API updates"
+
+# Push to trigger deployment
+git push origin release
+```
+
+#### Step 3: Monitor Deployment
+
+1. Go to your repository's **Actions** tab
+2. Monitor the "Deploy Lambda on Release Merge" workflow
+3. Check the deployment logs for any issues
+
+#### Manual Trigger
+
+You can also trigger the deployment manually:
+
+1. Go to the **Actions** tab in your repository
+2. Select "Deploy Lambda on Release Merge"
+3. Click "Run workflow"
+4. Select the branch and click "Run workflow"
+
+---
+
+### Post-Deployment Verification
+
+After deploying using any method, verify the deployment:
+
+#### 1. Check Lambda Function
+
+```bash
+# Verify function exists and configuration
+aws lambda get-function --function-name TenderCoreLogicAPI
+
+# Check environment variables
+aws lambda get-function-configuration --function-name TenderCoreLogicAPI
+```
+
+#### 2. Test API Gateway Endpoint
+
+```bash
+# Get the API Gateway URL from CloudFormation outputs
+aws cloudformation describe-stacks --stack-name tender-core-logic-api-stack --query 'Stacks[0].Outputs'
+
+# Test the health check endpoint
+curl -X GET https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/Prod/
+
+# Test API endpoints (requires proper IAM signing)
+curl -X GET https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/Prod/api/tenders \
+  --aws-sigv4 "aws:amz:us-east-1:execute-api" \
+  --user "your-access-key:your-secret-key"
+```
+
+#### 3. Verify Database Connectivity
+
+```bash
+# Check CloudWatch logs for any connection issues
+aws logs describe-log-groups --log-group-name-prefix "/aws/lambda/TenderCoreLogicAPI"
+
+# View recent logs
+aws logs tail "/aws/lambda/TenderCoreLogicAPI" --follow
+```
+
+---
+
+### Environment Variables Setup
+
+Configure these environment variables in your Lambda function:
+
+| Variable | Value | Description |
+|----------|-------|-------------|
+| `DB_CONNECTION_STRING` | `Server=your-rds-endpoint,1433;Database=TenderTool;User Id=admin;Password=YOUR_PASSWORD;Encrypt=True;TrustServerCertificate=True` | SQL Server connection string |
+| `MAILER_FUNCTION_ARN` | `arn:aws:lambda:us-east-1:123456789:function:TenderMailer` | ARN for email notification service |
+| `LOGGING_FUNCTION_ARN` | `arn:aws:lambda:us-east-1:123456789:function:TenderLogger` | ARN for advanced logging service |
+| `ANALYTICS_FUNCTION_ARN` | `arn:aws:lambda:us-east-1:123456789:function:TenderAnalytics` | ARN for business intelligence service |
+
+> **Security Note**: For production deployments, store sensitive configuration values in AWS Secrets Manager or Parameter Store instead of environment variables.
+
+---
+
+### API Gateway Configuration
+
+The deployment automatically creates an API Gateway with the following configuration:
+
+- **Base URL**: `https://{api-id}.execute-api.us-east-1.amazonaws.com/Prod/`
+- **API Endpoints**:
+  - `GET/POST/PUT/DELETE /api/tenders` - Tender management
+  - `GET/POST/DELETE /api/watchlist` - Watchlist operations
+  - `GET/PUT /api/user/profile` - User profile management
+  - `GET /api/admin/logs` - Admin logging (super users only)
+  - `GET /api/admin/analytics` - Admin analytics (super users only)
+
+#### CORS Configuration:
+
+The template includes `OPTIONS` methods for CORS support. Ensure your frontend is configured to handle CORS properly:
+
+```javascript
+// Example frontend configuration
+const API_CONFIG = {
+  endpoints: {
+    apiGateway: 'https://your-api-gateway-url.execute-api.us-east-1.amazonaws.com/Prod'
+  },
+  aws_api_gateway_method: 'ANY',
+  aws_api_gateway_path: '/{proxy+}'
+};
+```
+
+---
+
+### Database Migration Management
+
+Since this is the central hub, you may need to run database migrations:
+
+#### Development Migrations:
+
+```bash
+# Navigate to project directory
+cd Tender-Core-Logic/src/Tender-Core-Logic
+
+# Add new migration
+dotnet ef migrations add YourMigrationName --context ApplicationDbContext
+
+# Update database (development only)
+dotnet ef database update --context ApplicationDbContext
+```
+
+#### Production Migrations:
+
+```bash
+# Generate SQL script for production
+dotnet ef migrations script --context ApplicationDbContext -o migration.sql
+
+# Apply manually to production database via secure connection
+```
+
+---
+
+### IAM Security Configuration
+
+For production deployment, ensure proper IAM policies:
+
+#### Lambda Execution Role:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "lambda:InvokeFunction"
+      ],
+      "Resource": [
+        "arn:aws:lambda:*:*:function:TenderMailer",
+        "arn:aws:lambda:*:*:function:TenderLogger",
+        "arn:aws:lambda:*:*:function:TenderAnalytics"
+      ]
+    }
+  ]
+}
+```
+
+#### API Gateway Resource Policy (for IAM authentication):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "execute-api:Invoke",
+      "Resource": "arn:aws:execute-api:us-east-1:123456789:*/*/api/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:SourceIp": "your-allowed-ip-ranges"
+        }
+      }
+    }
+  ]
+}
+```
+
+---
+
+### Troubleshooting Deployment Issues
+
+**Build Failures:**
+- Ensure .NET 8 SDK is installed and available in PATH
+- Verify all NuGet packages are restored successfully
+- Check for any compilation errors in the project
+
+**Deployment Permission Errors:**
+- Verify AWS credentials have necessary permissions for Lambda, API Gateway, and IAM
+- Check CloudFormation stack creation permissions
+- Ensure S3 bucket access for deployment artifacts
+
+**Runtime Errors:**
+- Check CloudWatch logs for detailed error messages
+- Verify environment variables are correctly set
+- Test database connectivity from Lambda VPC
+- Validate IAM permissions for invoking other Lambda functions
+
+**API Gateway Integration Issues:**
+- Verify proxy integration is correctly configured
+- Check CORS settings if accessing from web frontend
+- Ensure proper IAM authentication is configured
+- Test API endpoints with proper AWS Signature v4 signing
+
+**Function Update Failures:**
+- Verify the function name matches between secrets and actual function
+- Check that the ZIP file is properly formatted
+- Ensure the function handler path is correct
+- Validate Lambda runtime and architecture settings
 ## 🧰 Troubleshooting & Team Gotchas
 
 ### 🚨 Common Mission-Critical Issues
